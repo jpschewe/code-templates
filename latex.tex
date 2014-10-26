@@ -1,0 +1,101 @@
+\documentclass[12pt]{article}
+% OR
+% \documentclass[letterpaper,11pt]{report}
+\usepackage{fullpage}
+\usepackage{float}
+\usepackage{alltt}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+
+% nice for tables
+\usepackage{tabularx}
+
+% FloatBarrier
+\usepackage{placeins}
+
+% html links
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=blue, urlcolor=blue}
+\renewcommand*{\subsubsectionautorefname}{section}
+\renewcommand*{\subsectionautorefname}{section}
+
+% algorithm environment for pseudocode 
+\usepackage{algorithm}
+\usepackage{algorithmic}
+%\floatname{algorithm}{}
+
+% draft - include comments as footnotes and marginpars
+\newif\ifdraft
+\drafttrue
+\ifdraft
+\typeout{DRAFT - WITH COMMENTS}
+\newcommand{\doccomment}[3]%
+{\marginpar{\textcolor{#2}{\bf #1}}%
+%\footnote{\textcolor{#2}{#3}}%
+\footnote{{\color{#2}#3}}%
+}
+\else
+\typeout{NOT DRAFT - NO COMMENTS}
+\newcommand{\doccomment}[3]{}
+\fi
+
+% comments for individuals
+\newcommand{\jpscomment}[1]%
+{\doccomment{SCHEWE}{Bittersweet}{#1}}
+
+
+\title{TITLE}
+\author{Jon Schewe}
+
+\begin{document}
+
+\maketitle
+
+\texttt{type-faced text}
+
+\textbf{bold-faced text}
+
+\begin{verbatim}
+Pre-formatted text.
+\end{verbatim}
+
+\begin{figure}[htb]
+\centering
+% can shrink by putting decimal in front of \textwidth eg: "0.8\textwidth"
+% will need type=png,read=.png,ext=.png if multiple  dots in the filename
+\includegraphics[width=\textwidth]{file.jpg}
+\caption{Cool image}
+\label{fig:cool_image}
+\end{figure}
+
+\autoref{label}
+
+\FloatBarrier
+\section{foo}
+
+% use tabular if you don't need the tables to be full width
+\begin{center}
+\begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|c|X|} \hline
+
+\rowcolor[gray]{.8}
+\multicolumn{3}{|>{\columncolor[gray]{.8}}c|}{Parameters} &
+\multicolumn{3}{|>{\columncolor[gray]{.8}}c|}{Missing} &
+\multicolumn{3}{|>{\columncolor[gray]{.8}}c|}{Extra} &
+Total \\ \hline
+
+\rowcolor[gray]{.8} Crosstrack & Height & Rotation & 
+Before & After & Diff &
+Before & After & Diff &
+Diff \\ \hline
+
+true & true & true & 
+48 & 33  & 15 &  
+81 & 85  & 4 &  
+19
+\\ \hline
+
+\end{tabularx}
+\end{center}
+
+\end{document}

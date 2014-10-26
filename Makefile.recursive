@@ -1,0 +1,37 @@
+UNAME := $(shell uname)
+
+include ../make_version.inc
+
+SUBDIRS = analyze-runs cameraRipper carsPerMile gpsRipper lidarRipper scan-tool split
+SUBDIRS_debug = $(SUBDIRS:%=debug-%)
+SUBDIRS_release = $(SUBDIRS:%=release-%)
+SUBDIRS_clean = $(SUBDIRS:%=clean-%)
+SUBDIRS_check = $(SUBDIRS:%=check-%)
+
+.PHONY: debug
+debug: $(SUBDIRS_debug)
+
+.PHONY: $(SUBDIRS_debug)
+$(SUBDIRS_debug):
+	$(MAKE) -C $(@:debug-%=%)
+
+.PHONY: release
+release: $(SUBDIRS_release)
+
+.PHONY: $(SUBDIRS_release)
+$(SUBDIRS_release):
+	$(MAKE) -C $(@:release-%=%)
+
+.PHONY: clean
+clean: $(SUBDIRS_clean)
+
+.PHONY: $(SUBDIRS_clean)
+$(SUBDIRS_clean):
+	$(MAKE) -C $(@:clean-%=%)
+
+.PHONY: check
+check: $(SUBDIRS_check)
+
+.PHONY: $(SUBDIRS_check)
+$(SUBDIRS_check):
+	$(MAKE) -C $(@:check-%=%)
