@@ -14,7 +14,7 @@ cleanup() {
 }
 trap 'cleanup' INT TERM EXIT
 
-var=${1-.}
+var=${1:-default}
 
 # check for ${word} in ${string}
 test "${string#*$word}" != "$string" && echo "$word found in $string"
