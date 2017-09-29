@@ -33,6 +33,8 @@ def main(argv=None):
 
     args = parser.parse_args(argv)
 
+    print("Logging to {0}".format(args.logfile))
+    
     for a in args[1:]:
         pass
         
