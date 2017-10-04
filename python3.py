@@ -13,6 +13,9 @@ with warnings.catch_warnings():
 
 script_dir=os.path.abspath(os.path.dirname(__file__))
 
+def get_logger():
+    return logging.getLogger(__name__)
+
 def setup_logging(
     default_path='logging.json',
     default_level=logging.INFO,
