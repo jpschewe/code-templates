@@ -57,8 +57,6 @@ def main(argv=None):
 
     setup_logging(default_path=args.logconfig)
     
-    for a in args[1:]:
-        pass
         
 if __name__ == "__main__":
     sys.exit(main())
