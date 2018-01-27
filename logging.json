@@ -37,6 +37,9 @@
     },
 
     "loggers": {
+	"__main__" : {
+	    "level": "DEBUG"
+	}
     },
 
     "root": {
