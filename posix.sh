@@ -18,3 +18,20 @@ var=${1:-default}
 
 # check for ${word} in ${string}
 test "${string#*$word}" != "$string" && echo "$word found in $string"
+
+# parse arguments
+while [ $# -gt 0 ]; do
+    case $1 in
+        --help|-h)
+            log "Help here"
+            ;;
+        --arg)
+            if [ -z "$2" ]; then
+                fatal "--arg is missing argument"
+            fi
+            param=$2
+            shift
+            ;;
+    esac
+    shift
+done
