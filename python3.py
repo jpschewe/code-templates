@@ -45,7 +45,12 @@ def create_preferences_directory():
     projectname = "test"
     if not os.path.isdir("{0}.{1}".format(homedir,projectname)):
         os.makedirs("{0}.{1}".format(homedir,projectname))
-    
+
+class C:
+    def __str__(self):
+        return str(self.__dict__)
+
+        
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
