@@ -32,6 +32,6 @@
 
   "root": {
     "level": "INFO",
-    "handlers": ["console", "file_handler", "error_file_handler"]
+    "handlers": ["console", "file_handler"]
   }
 }
