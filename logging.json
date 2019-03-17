@@ -1,37 +1,37 @@
 {
-    "version": 1,
-    "disable_existing_loggers": false,
-    "formatters": {
-        "simple": {
-            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        }
-    },
-
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "level": "DEBUG",
-            "formatter": "simple",
-            "stream": "ext://sys.stdout"
-        },
-
-        "file_handler": {
-            "class": "logging.FileHandler",
-            "level": "DEBUG",
-            "formatter": "simple",
-            "filename": "python.log",
-            "encoding": "utf8"
-        },
-    },
-
-    "loggers": {
-	"__main__" : {
-	    "level": "DEBUG"
-	}
-    },
-
-    "root": {
-        "level": "INFO",
-        "handlers": ["console", "file_handler", "error_file_handler"]
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     }
+  },
+
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+
+    "file_handler": {
+      "class": "logging.FileHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "filename": "python.log",
+      "encoding": "utf8"
+    }
+  },
+
+  "loggers": {
+	"__main__" : {
+	  "level": "DEBUG"
+	}
+  },
+
+  "root": {
+    "level": "INFO",
+    "handlers": ["console", "file_handler", "error_file_handler"]
+  }
 }
