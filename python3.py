@@ -47,9 +47,15 @@ def create_preferences_directory():
     if not os.path.isdir("{0}.{1}".format(homedir,projectname)):
         os.makedirs("{0}.{1}".format(homedir,projectname))
 
-class C:
+class Base(object):
     def __str__(self):
         return str(self.__dict__)
+    
+    def __repr__(self):
+        type_ = type(self)
+        module = type_.__module__
+        qualname = type_.__qualname__        
+        return f"<{module}.{qualname} {str(self)}>"
 
         
 def main(argv=None):
