@@ -57,19 +57,34 @@ class Base(object):
         qualname = type_.__qualname__        
         return f"<{module}.{qualname} {str(self)}>"
 
-        
+    
+def main_method():
+    pass
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--logconfig", dest="logconfig", help="logging configuration (default: logging.json)", default='logging.json')
+    parser.add_argument("--debug", dest="debug", help="Enable interactive debugger on error", action='store_true')
 
     args = parser.parse_args(argv)
 
     setup_logging(default_path=args.logconfig)
-    
+
+    if args.debug:
+        import pdb, traceback, sys
+        try:
+            main_method()
+        except:
+            extype, value, tb = sys.exc_info()
+            traceback.print_exc()
+            pdb.post_mortem(tb)    
+    else:
+        main_method()
+            
         
 if __name__ == "__main__":
     sys.exit(main())
-    
