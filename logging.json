@@ -3,7 +3,7 @@
   "disable_existing_loggers": false,
   "formatters": {
     "simple": {
-      "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+      "format": "%(asctime)s - [%(process)d] [%(threadName)s] - %(name)s - %(levelname)s - %(message)s"
     }
   },
 
@@ -20,7 +20,8 @@
       "level": "DEBUG",
       "formatter": "simple",
       "filename": "python.log",
-      "encoding": "utf8"
+	"encoding": "utf8",
+	"mode": "w"
     }
   },
 
