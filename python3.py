@@ -75,7 +75,7 @@ def main(argv=None):
     setup_logging(default_path=args.logconfig)
 
     if args.debug:
-        import pdb, traceback, sys
+        import pdb, traceback
         try:
             main_method()
         except:
