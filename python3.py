@@ -66,7 +66,20 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
-    parser = argparse.ArgumentParser()
+    class ArgumentParserWithDefaults(argparse.ArgumentParser):
+        '''
+        From https://stackoverflow.com/questions/12151306/argparse-way-to-include-default-values-in-help
+        '''
+        def add_argument(self, *args, help=None, default=None, **kwargs):
+            if help is not None:
+                kwargs['help'] = help
+            if default is not None and args[0] != '-h':
+                kwargs['default'] = default
+                if help is not None:
+                    kwargs['help'] += ' (default: {})'.format(default)
+            super().add_argument(*args, **kwargs)
+        
+    parser = ArgumentParserWithDefaults(formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("-l", "--logconfig", dest="logconfig", help="logging configuration (default: logging.json)", default='logging.json')
     parser.add_argument("--debug", dest="debug", help="Enable interactive debugger on error", action='store_true')
 
