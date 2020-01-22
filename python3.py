@@ -58,7 +58,7 @@ class Base(object):
         return f"<{module}.{qualname} {str(self)}>"
 
     
-def main_method():
+def main_method(args):
     pass
 
 
@@ -90,13 +90,13 @@ def main(argv=None):
     if args.debug:
         import pdb, traceback
         try:
-            main_method()
+            main_method(args)
         except:
             extype, value, tb = sys.exc_info()
             traceback.print_exc()
             pdb.post_mortem(tb)    
     else:
-        main_method()
+        main_method(args)
             
         
 if __name__ == "__main__":
