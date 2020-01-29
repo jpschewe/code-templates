@@ -35,9 +35,9 @@
 \ifdraft
 \typeout{DRAFT - WITH COMMENTS}
 \newcommand{\doccomment}[3]%
-{\marginpar{\textcolor{#2}{\bf #1}}%
-%\footnote{\textcolor{#2}{#3}}%
-\footnote{{\color{#2}#3}}%
+%beamer {\textcolor{#2}{\bf \ti #1}%
+{\marginpar{\textcolor{#2}{\bf #1}}% 
+\footnote{\textcolor{#2}{#3}}%
 }
 \else
 \typeout{NOT DRAFT - NO COMMENTS}
