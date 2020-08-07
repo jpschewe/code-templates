@@ -12,10 +12,12 @@ with warnings.catch_warnings():
     import json
     from pathlib import Path
 
-script_dir=os.path.abspath(os.path.dirname(__file__))
+script_dir=(Path(__file__).parent).resolve()
+
 
 def get_logger():
     return logging.getLogger(__name__)
+
 
 def setup_logging(
     default_path='logging.json',
@@ -36,6 +38,7 @@ def setup_logging(
     else:
         logging.basicConfig(level=default_level)
 
+
 def create_preferences_directory():
     if os.name != "posix":
         from win32com.shell import shellcon, shell
@@ -46,6 +49,7 @@ def create_preferences_directory():
     projectname = "test"
     if not os.path.isdir("{0}.{1}".format(homedir,projectname)):
         os.makedirs("{0}.{1}".format(homedir,projectname))
+
 
 class Base(object):
     def __str__(self):
