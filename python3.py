@@ -66,6 +66,27 @@ def main_method(args):
     pass
 
 
+def multiprocess_logging_handler(logging_queue, logconfig, running):
+    import time
+    setup_logging(default_path=logconfig)
+
+    def process_queue():
+        while not logging_queue.empty():
+            try:
+                record = logging_queue.get(timeout=1)
+                logger = logging.getLogger(record.name)
+                logger.handle(record)
+            except (multiprocessing.Queue.Empty, multiprocessing.TimeoutError) as e:
+                # timeout was hit, just return
+                pass
+        
+    while running.value > 0:
+        process_queue()
+
+    # process any last log messages
+    process_queue()
+
+    
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
