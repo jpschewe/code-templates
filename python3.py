@@ -37,18 +37,6 @@ def setup_logging(
         logging.basicConfig(level=default_level)
 
 
-def create_preferences_directory():
-    if os.name != "posix":
-        from win32com.shell import shellcon, shell
-        homedir = "{}\\".format(shell.SHGetFolderPath(0, shellcon.CSIDL_APPDATA, 0, 0))
-    else:
-        homedir = "{}/".format(os.path.expanduser("~"))
-
-    projectname = "test"
-    if not os.path.isdir("{0}.{1}".format(homedir,projectname)):
-        os.makedirs("{0}.{1}".format(homedir,projectname))
-
-
 class Base(object):
     def __str__(self):
         return str(self.__dict__)
