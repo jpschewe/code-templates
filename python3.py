@@ -52,27 +52,6 @@ def main_method(args):
     pass
 
 
-def multiprocess_logging_handler(logging_queue, logconfig, running):
-    import time
-    setup_logging(default_path=logconfig)
-
-    def process_queue():
-        while not logging_queue.empty():
-            try:
-                record = logging_queue.get(timeout=1)
-                logger = logging.getLogger(record.name)
-                logger.handle(record)
-            except (multiprocessing.Queue.Empty, multiprocessing.TimeoutError) as e:
-                # timeout was hit, just return
-                pass
-        
-    while running.value > 0:
-        process_queue()
-
-    # process any last log messages
-    process_queue()
-
-    
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
@@ -96,34 +75,22 @@ def main(argv=None):
 
     args = parser.parse_args(argv)
 
+    setup_logging(default_path=args.logconfig)
     if 'multiprocessing' in sys.modules:
-        running = multiprocessing.Value('b', 1)
-        logging_queue = multiprocessing.Queue()
-        logging_listener = multiprocessing.Process(target=multiprocess_logging_handler, args=(logging_queue, args.logconfig,running,))
-        logging_listener.start()
+        # requires the multiprocessing-logging module - see https://github.com/jruere/multiprocessing-logging
+        import multiprocessing_logging
+        multiprocessing_logging.install_mp_handler()
 
-        h = logging.handlers.QueueHandler(logging_queue)
-        root = logging.getLogger()
-        root.addHandler(h)
-        root.setLevel(logging.DEBUG)
-    else:
-        logging_listener = None
-        setup_logging(default_path=args.logconfig)
-
-    try:
-        if args.debug:
-            import pdb, traceback
-            try:
-                return main_method(args)
-            except:
-                extype, value, tb = sys.exc_info()
-                traceback.print_exc()
-                pdb.post_mortem(tb)    
-        else:
+    if args.debug:
+        import pdb, traceback
+        try:
             return main_method(args)
-    finally:
-        if logging_listener:
-            running.value = 0
+        except:
+            extype, value, tb = sys.exc_info()
+            traceback.print_exc()
+            pdb.post_mortem(tb)    
+    else:
+        return main_method(args)
         
             
 if __name__ == "__main__":
