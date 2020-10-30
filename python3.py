@@ -6,14 +6,12 @@ with warnings.catch_warnings():
     import sys
     import argparse
     import os
-    import os.path
     import logging
     import logging.config
     import json
     from pathlib import Path
 
-script_dir=(Path(__file__).parent).resolve()
-
+script_dir=Path(__file__).parent.absolute()
 
 def get_logger():
     return logging.getLogger(__name__)
@@ -27,11 +25,11 @@ def setup_logging(
     """
     Setup logging configuration
     """
-    path = default_path
+    path = Path(default_path)
     value = os.getenv(env_key, None)
     if value:
-        path = value
-    if os.path.exists(path):
+        path = Path(value)
+    if path.exists():
         with open(path, 'r') as f:
             config = json.load(f)
         logging.config.dictConfig(config)
