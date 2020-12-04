@@ -25,15 +25,19 @@ def setup_logging(
     """
     Setup logging configuration
     """
-    path = Path(default_path)
-    value = os.getenv(env_key, None)
-    if value:
-        path = Path(value)
-    if path.exists():
-        with open(path, 'r') as f:
-            config = json.load(f)
-        logging.config.dictConfig(config)
-    else:
+    try:
+        path = Path(default_path)
+        value = os.getenv(env_key, None)
+        if value:
+            path = Path(value)
+        if path.exists():
+            with open(path, 'r') as f:
+                config = json.load(f)
+            logging.config.dictConfig(config)
+        else:
+            logging.basicConfig(level=default_level)
+    except:
+        print(f"Error configuring logging, using default configuration with level {default_level}")
         logging.basicConfig(level=default_level)
 
 
