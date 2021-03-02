@@ -11,7 +11,7 @@ with warnings.catch_warnings():
     import json
     from pathlib import Path
 
-script_dir=Path(__file__).parent.absolute()
+SCRIPT_DIR=Path(__file__).parent.absolute()
 
 def get_logger():
     return logging.getLogger(__name__)
@@ -61,9 +61,9 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     class ArgumentParserWithDefaults(argparse.ArgumentParser):
-        '''
+        """
         From https://stackoverflow.com/questions/12151306/argparse-way-to-include-default-values-in-help
-        '''
+        """
         def add_argument(self, *args, help=None, default=None, **kwargs):
             if help is not None:
                 kwargs['help'] = help
