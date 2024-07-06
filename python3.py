@@ -37,7 +37,7 @@ def setup_logging(
         else:
             logging.basicConfig(level=default_level)
     except:
-        print(f"Error configuring logging, using default configuration with level {default_level}")
+        print(f"Error configuring logging, using default configuration with level {default_level}: {err=}, {type(err)=}")
         logging.basicConfig(level=default_level)
 
 
