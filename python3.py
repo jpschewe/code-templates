@@ -74,8 +74,8 @@ def main(argv=None):
             super().add_argument(*args, **kwargs)
         
     parser = ArgumentParserWithDefaults(formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("-l", "--logconfig", dest="logconfig", help="logging configuration (default: logging.json)", default='logging.json')
-    parser.add_argument("--debug", dest="debug", help="Enable interactive debugger on error", action='store_true')
+    parser.add_argument("-l", "--logconfig", help="logging configuration (default: logging.json)", default='logging.json')
+    parser.add_argument("--debug", help="Enable interactive debugger on error", action='store_true')
 
     args = parser.parse_args(argv)
 
